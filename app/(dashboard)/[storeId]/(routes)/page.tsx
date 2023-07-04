@@ -1,5 +1,5 @@
-import prismadb from "@/lib/prismadb";
 import React from "react";
+import prismadb from "@/lib/prismadb";
 
 interface DashboardPageProps {
   params: { storeId: string };
