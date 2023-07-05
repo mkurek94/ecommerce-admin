@@ -11,11 +11,15 @@ export async function PATCH(
     const body = await req.json();
 
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse("Unauthenticated", { status: 401 });
     }
 
     if (!body.name) {
       return new NextResponse("Name is required", { status: 400 });
+    }
+
+    if (!params.storeId) {
+      return new NextResponse("Store id Id is required", { status: 400 });
     }
 
     const store = await prismadb.store.updateMany({
@@ -43,7 +47,11 @@ export async function DELETE(
     const { userId } = auth();
 
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse("Unauthenticated", { status: 401 });
+    }
+
+    if (!params.storeId) {
+      return new NextResponse("Store id Id is required", { status: 400 });
     }
 
     const store = await prismadb.store.deleteMany({
